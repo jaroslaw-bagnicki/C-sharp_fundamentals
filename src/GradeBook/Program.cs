@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 
@@ -9,6 +10,14 @@ namespace GradeBook
         static void Main(string[] args)
         {
             CultureInfo.CurrentCulture = new CultureInfo("");
+            
+            var book = new Book();
+
+            book.AddGrade(6);
+            book.AddGrade(2);
+            book.AddGrade(3.5);
+            var grades = book.GetGrades();
+            book.AddGrade(5.5);
 
             (var sum, var count) = (0.0, 0);
 
