@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 
 namespace GradeBook
 {
@@ -10,22 +11,17 @@ namespace GradeBook
         {
             CultureInfo.CurrentCulture = new CultureInfo("");
 
-            var numbers = new List<double>();
+            (var sum, var count) = (0.0, 0);
 
-            foreach (var str in args)
-            {
-                numbers.Add(double.Parse(str));
-            }
-            
-            var sum = 0.0;
-            foreach (var str in args)
-            {
-                sum += double.Parse(str);
-            }
+            var numbers = args.Select(str => double.Parse(str)).ToList();
+        
+            var acc = args
+                .Select(str => double.Parse(str))
+                .Aggregate((sum: 0.0, count: 0), (acc, curr) => (acc.sum + curr, acc.count++));
 
-            var avg = sum / numbers.Count;
+            var avg = acc.sum / acc.count;
 
-            Console.WriteLine($"Sum is: {sum} and average is: {avg}");
+            Console.WriteLine($"Sum is: {acc.sum} and average is: {avg}");
         }
     }
 }
