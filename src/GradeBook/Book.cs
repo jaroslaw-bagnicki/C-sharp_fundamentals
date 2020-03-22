@@ -41,5 +41,14 @@ namespace GradeBook
                 return _grades.Aggregate(double.MinValue, (acc, curr) => Math.Max(acc, curr));
             }
         }
+
+        public void ShowStats()
+        {
+            Console.WriteLine($"Statistics for {Name} book:");
+            Console.WriteLine($"There is {Grades.Count} grades");
+            Console.WriteLine($"Average grade is {AvgGrade:N1}");
+            Console.WriteLine($"Lowest grade is {MinGrade:N1}");
+            Console.WriteLine($"Highest grade is {MaxGrade:N1}");
+        }
     }
 }
