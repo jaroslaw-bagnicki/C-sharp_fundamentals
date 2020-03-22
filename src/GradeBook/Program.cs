@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 
@@ -17,7 +16,7 @@ namespace GradeBook
         
             var acc = args
                 .Select(str => double.Parse(str))
-                .Aggregate((sum: 0.0, count: 0), (acc, curr) => (acc.sum + curr, acc.count++));
+                .Aggregate((sum: 0.0, count: 0), (acc, curr) => (acc.sum + curr, acc.count + 1));
 
             var avg = acc.sum / acc.count;
 
