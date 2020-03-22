@@ -9,14 +9,13 @@ namespace GradeBook
         {
             CultureInfo.CurrentCulture = new CultureInfo("");
             
-            var i = 0;
+            double result = 0;
             var numbers = new double[args.Length];
             foreach (var str in args)
             {
-                numbers[i] = double.Parse(str);
-                i++;
+                result += double.Parse(str);
             }
-            Console.WriteLine(numbers.ToString());
+            Console.WriteLine($"Sum is: {result}");
         }
     }
 }
