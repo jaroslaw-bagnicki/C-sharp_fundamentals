@@ -9,14 +9,15 @@ namespace GradeBook
     {
         string _name;
         List<double> _grades;
+        public readonly ReadOnlyCollection<double> Grades;
 
         public Book(string name)
         {
             _name = name;
             _grades = new List<double>();
+            Grades = _grades.AsReadOnly();
         }
 
-        public ReadOnlyCollection<double> Grades { get { return _grades.AsReadOnly(); } }
         public string Name { get { return _name; } }
 
         public void AddGrade(double grade)
@@ -24,21 +25,27 @@ namespace GradeBook
             _grades.Add(grade);
         }
 
-        public double AvgGrade {
-            get {
-                 var acc = _grades.Aggregate((sum: 0.0, count: 0), (acc, curr) => (acc.sum + curr, acc.count + 1));
+        public Nullable<double> AvgGrade {
+            get
+            {
+                if (Grades.Count == 0) return null;
+                var acc = _grades.Aggregate((sum: 0.0, count: 0), (acc, curr) => (acc.sum + curr, acc.count + 1));
                 return acc.sum / acc.count;
             }
         }
 
-        public double MinGrade {
-            get {
+        public Nullable<double> MinGrade {
+            get
+            {
+                if (Grades.Count == 0) return null;
                 return _grades.Aggregate(double.MaxValue, (acc, curr) => Math.Min(acc, curr));
             }
         }
 
-        public double MaxGrade {
-            get {
+        public Nullable<double> MaxGrade {
+            get 
+            {
+                if (Grades.Count == 0) return null;
                 return _grades.Aggregate(double.MinValue, (acc, curr) => Math.Max(acc, curr));
             }
         }
