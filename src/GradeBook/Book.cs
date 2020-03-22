@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 
 namespace GradeBook
@@ -15,12 +16,12 @@ namespace GradeBook
             _grades = new List<double>();
         }
 
-        public List<double> Grades { get { return _grades; } }
+        public ReadOnlyCollection<double> Grades { get { return _grades.AsReadOnly(); } }
         public string Name { get { return _name; } }
 
         public void AddGrade(double grade)
         {
-            Grades.Add(grade);
+            _grades.Add(grade);
         }
 
         public double AvgGrade {
@@ -45,7 +46,7 @@ namespace GradeBook
         public void ShowStats()
         {
             Console.WriteLine($"Statistics for {Name} book:");
-            Console.WriteLine($"There is {Grades.Count} grades");
+            Console.WriteLine($"There is {_grades.Count} grades");
             Console.WriteLine($"Average grade is {AvgGrade:N1}");
             Console.WriteLine($"Lowest grade is {MinGrade:N1}");
             Console.WriteLine($"Highest grade is {MaxGrade:N1}");
