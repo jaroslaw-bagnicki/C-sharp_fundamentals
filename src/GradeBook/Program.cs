@@ -17,15 +17,15 @@ namespace GradeBook
             book.AddGrade(2);
             book.AddGrade(3.5);
             var grades = book.Grades;
-            book.AddGrade(5.5);
+            //grades.Add(5.5);
+
+            var avg = book.AvgGrade;
+            var min = book.MinGrade;
+            var max = book.MaxGrade;
         
-            var acc = args
-                .Select(str => double.Parse(str))
-                .Aggregate((sum: 0.0, count: 0), (acc, curr) => (acc.sum + curr, acc.count + 1));
-
-            var avg = acc.sum / acc.count;
-
-            Console.WriteLine($"Sum is: {acc.sum} and average is: {avg}");
+            Console.WriteLine($"Average grade is: {avg:N1}");
+            Console.WriteLine($"Lowest grade is: {min:N1}");
+            Console.WriteLine($"Highest grade is: {max:N1}");
         }
     }
 }
