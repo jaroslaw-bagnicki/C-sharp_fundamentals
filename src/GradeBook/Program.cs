@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 
 namespace GradeBook
 {
@@ -6,7 +7,16 @@ namespace GradeBook
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            CultureInfo.CurrentCulture = new CultureInfo("");
+            
+            var i = 0;
+            var numbers = new double[args.Length];
+            foreach (var str in args)
+            {
+                numbers[i] = double.Parse(str);
+                i++;
+            }
+            Console.WriteLine(numbers.ToString());
         }
     }
 }
