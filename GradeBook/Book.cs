@@ -50,13 +50,19 @@ namespace GradeBook
             }
         }
 
+        public Stats GetStats()
+        {
+            return new Stats { AvgGrade = AvgGrade, MinGrade = MinGrade, MaxGrade = MaxGrade };
+        }
+
         public void ShowStats()
         {
+            var stats = GetStats();
             Console.WriteLine($"Statistics for {Name} book:");
             Console.WriteLine($"There is {_grades.Count} grades");
-            Console.WriteLine($"Average grade is {AvgGrade:N1}");
-            Console.WriteLine($"Lowest grade is {MinGrade:N1}");
-            Console.WriteLine($"Highest grade is {MaxGrade:N1}");
+            Console.WriteLine($"Average grade is {stats.AvgGrade:N1}");
+            Console.WriteLine($"Lowest grade is {stats.MinGrade:N1}");
+            Console.WriteLine($"Highest grade is {stats.MaxGrade:N1}");
         }
     }
 }
