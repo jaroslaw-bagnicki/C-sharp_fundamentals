@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 
 namespace GradeBook
@@ -8,14 +9,23 @@ namespace GradeBook
         static void Main(string[] args)
         {
             CultureInfo.CurrentCulture = new CultureInfo("");
-            
-            double result = 0;
-            var numbers = new double[args.Length];
+
+            var numbers = new List<double>();
+
             foreach (var str in args)
             {
-                result += double.Parse(str);
+                numbers.Add(double.Parse(str));
             }
-            Console.WriteLine($"Sum is: {result}");
+            
+            var sum = 0.0;
+            foreach (var str in args)
+            {
+                sum += double.Parse(str);
+            }
+
+            var avg = sum / numbers.Count;
+
+            Console.WriteLine($"Sum is: {sum} and average is: {avg}");
         }
     }
 }
