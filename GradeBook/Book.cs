@@ -52,7 +52,11 @@ namespace GradeBook
 
         public Stats GetStats()
         {
-            return new Stats { AvgGrade = AvgGrade, MinGrade = MinGrade, MaxGrade = MaxGrade };
+            return new Stats { 
+                AvgGrade = AvgGrade,
+                MinGrade = MinGrade,
+                MaxGrade = MaxGrade,
+            };
         }
 
         public void ShowStats()
