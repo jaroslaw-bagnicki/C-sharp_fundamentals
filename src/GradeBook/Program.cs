@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
+﻿using System.Globalization;
 
 namespace GradeBook
 {
@@ -16,7 +13,7 @@ namespace GradeBook
             book.AddGrade(6);
             book.AddGrade(2);
             book.AddGrade(3.5);
-            
+
             book.ShowStats();
         }
     }
