@@ -4,21 +4,21 @@ namespace GradeBook
 {
     class Book
     {
-        List<double> Grades;
+        string _name;
+        List<double> _grades;
 
-        public Book()
+        public Book(string name)
         {
-            Grades = new List<double>();
+            _name = name;
+            _grades = new List<double>();
         }
+
+        public List<double> Grades { get { return _grades; } }
+        public string Name { get { return _name; } }
 
         public void AddGrade(double grade)
         {
             Grades.Add(grade);
-        }
-
-        public List<double> GetGrades()
-        {
-            return Grades;
         }
     }
 }

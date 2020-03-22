@@ -11,17 +11,13 @@ namespace GradeBook
         {
             CultureInfo.CurrentCulture = new CultureInfo("");
             
-            var book = new Book();
+            var book = new Book("Math");
 
             book.AddGrade(6);
             book.AddGrade(2);
             book.AddGrade(3.5);
-            var grades = book.GetGrades();
+            var grades = book.Grades;
             book.AddGrade(5.5);
-
-            (var sum, var count) = (0.0, 0);
-
-            var numbers = args.Select(str => double.Parse(str)).ToList();
         
             var acc = args
                 .Select(str => double.Parse(str))
