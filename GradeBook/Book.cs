@@ -47,12 +47,17 @@ namespace GradeBook
             }
         }
 
-        public Nullable<char> GetLetterGrade(double? grade) 
+        public static Nullable<char> ConvertTotLetterGrade(double? grade) 
         {
             if (grade == null)
             {
                 return null;
             }
+
+            if (grade > 100 || grade < 0) {
+                throw new ArgumentOutOfRangeException(nameof(grade), "Grade have to be between 0 and 100");
+            }
+
             switch(grade)
             {
                 case var g when g >= 90:
@@ -64,10 +69,8 @@ namespace GradeBook
                 case var g when g >= 60:
                     return 'D';
                 case var g when g >= 0:
-                    return 'F';    
                 default:
-                    throw new ArgumentOutOfRangeException(nameof(grade), "Grade have to be between 0 and 100");
-
+                    return 'F';
             }
         }
 

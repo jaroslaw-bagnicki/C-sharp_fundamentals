@@ -1,5 +1,6 @@
 using Xunit;
 using FluentAssertions;
+using System;
 
 namespace GradeBook.Tests
 {
@@ -36,6 +37,31 @@ namespace GradeBook.Tests
             };
 
            book.GetStats().Should().BeEquivalentTo(stats);
+        }
+
+        [Theory]
+        [InlineData(null, null)]
+        [InlineData(99.1, 'A')]
+        [InlineData(85.0, 'B')]
+        [InlineData(71.9, 'C')]
+        [InlineData(66.6, 'D')]
+        [InlineData(59.9, 'F')]
+        [InlineData(33.3, 'F')]
+        public void TestConvertToLetterGrade(Nullable<double> grade, Nullable<char> expected)
+        {
+             var result = Book.ConvertTotLetterGrade(grade);
+             result.Should().Be(expected);
+        }
+
+        [Theory]
+        [InlineData(999)]
+        [InlineData(-1)]
+        public void TestConvertToLetterGradeEx(double grade)
+        {
+            Action convert = () => Book.ConvertTotLetterGrade(grade);
+
+            convert.Should().Throw<ArgumentOutOfRangeException>()
+                .And.ParamName.Should().Be("grade");
         }
     }
 }
