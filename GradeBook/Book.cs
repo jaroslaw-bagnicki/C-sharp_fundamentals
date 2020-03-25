@@ -7,8 +7,8 @@ namespace GradeBook
 {
     public class Book
     {
-        static readonly double MIN_GRADE = 1.0;
-        static readonly double MAX_GRADE = 6.0;
+        static readonly double MIN_GRADE = 0.0;
+        static readonly double MAX_GRADE = 100.0;
         string _name;
         List<double> _grades;
         public readonly ReadOnlyCollection<double> Grades;
@@ -44,6 +44,30 @@ namespace GradeBook
                 if (Grades.Count == 0) return null;
                 var acc = _grades.Aggregate((sum: 0.0, count: 0), (acc, curr) => (acc.sum + curr, acc.count + 1));
                 return acc.sum / acc.count;
+            }
+        }
+
+        public Nullable<char> GetLetterGrade(double? grade) 
+        {
+            if (grade == null)
+            {
+                return null;
+            }
+            switch(grade)
+            {
+                case var g when g >= 90:
+                    return 'A';
+                case var g when g >= 80:
+                    return 'B';
+                case var g when g >= 70:
+                    return 'C';
+                case var g when g >= 60:
+                    return 'D';
+                case var g when g >= 0:
+                    return 'F';    
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(grade), "Grade have to be between 0 and 100");
+
             }
         }
 
