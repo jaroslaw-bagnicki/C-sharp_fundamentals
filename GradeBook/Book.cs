@@ -7,6 +7,8 @@ namespace GradeBook
 {
     public class Book
     {
+        static readonly double MIN_GRADE = 1.0;
+        static readonly double MAX_GRADE = 6.0;
         string _name;
         List<double> _grades;
         public readonly ReadOnlyCollection<double> Grades;
@@ -22,7 +24,18 @@ namespace GradeBook
 
         public void AddGrade(double grade)
         {
+            if (!ValidateGrade(grade))
+            {
+                Console.WriteLine("Invalid grade!");
+                return;
+            }
             _grades.Add(grade);
+            Console.WriteLine("Grade successfully added.");
+        }
+
+        private bool ValidateGrade(double grade)
+        {
+            return (grade >= MIN_GRADE && grade <= MAX_GRADE) ? true : false;
         }
 
         public Nullable<double> AvgGrade {
