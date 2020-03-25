@@ -10,16 +10,16 @@ namespace GradeBook.Tests
         public void TestGetters()
         {
             var book = new Book("Test book");
-            book.AddGrade(55);
-            book.AddGrade(79);
-            book.AddGrade(84);
+            book.AddGrade(79.0);
+            book.AddGrade(84.0);
+            book.AddGrade(55.0);
 
-            Assert.Equal(1, book.MinGrade);
-            Assert.Equal(5, book.MaxGrade);
-            Assert.Equal(((1+3+5)/3), book.AvgGrade);
-            book.MinGrade.Should().Be(1);
-            book.MaxGrade.Should().Be(5);
-            book.AvgGrade.Should().Be(((1+3+5)/3));
+            Assert.Equal(55.0, book.MinGrade);
+            Assert.Equal(84.0, book.MaxGrade);
+            Assert.Equal(72.7, book.AvgGrade);
+            book.MinGrade.Should().Be(55.0);
+            book.MaxGrade.Should().Be(84.0);
+            book.AvgGrade.Should().Be(72.7);
         }
 
         [Fact]
@@ -49,12 +49,7 @@ namespace GradeBook.Tests
                 book.AddGrade(grade);
             }
 
-            var stats = new Stats {
-                AvgGrade = avg,
-                AvgGradeLetter = avgLetter,
-                MinGrade = min,
-                MaxGrade = max,
-            };
+            var stats = new Stats(avg,avgLetter,min, max);
 
            book.GetStats().Should().BeEquivalentTo(stats);
         }

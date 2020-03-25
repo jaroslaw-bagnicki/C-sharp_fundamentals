@@ -92,12 +92,7 @@ namespace GradeBook
 
         public Stats GetStats()
         {
-            return new Stats { 
-                AvgGrade = AvgGrade,
-                AvgGradeLetter = Book.ConvertGradeTotLetterGrade(AvgGrade),
-                MinGrade = MinGrade,
-                MaxGrade = MaxGrade,
-            };
+            return new Stats(AvgGrade, Book.ConvertGradeTotLetterGrade(AvgGrade), MinGrade, MaxGrade);
         }
 
         public void ShowStats()
