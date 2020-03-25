@@ -43,11 +43,11 @@ namespace GradeBook
             {
                 if (Grades.Count == 0) return null;
                 var acc = _grades.Aggregate((sum: 0.0, count: 0), (acc, curr) => (acc.sum + curr, acc.count + 1));
-                return acc.sum / acc.count;
+                return Math.Round(acc.sum / acc.count, 1);
             }
         }
 
-        public static Nullable<char> ConvertTotLetterGrade(double? grade) 
+        public static Nullable<char> ConvertGradeTotLetterGrade(double? grade) 
         {
             if (grade == null)
             {
@@ -94,6 +94,7 @@ namespace GradeBook
         {
             return new Stats { 
                 AvgGrade = AvgGrade,
+                AvgGradeLetter = Book.ConvertGradeTotLetterGrade(AvgGrade),
                 MinGrade = MinGrade,
                 MaxGrade = MaxGrade,
             };
@@ -104,7 +105,7 @@ namespace GradeBook
             var stats = GetStats();
             Console.WriteLine($"Statistics for {Name} book:");
             Console.WriteLine($"There is {_grades.Count} grades");
-            Console.WriteLine($"Average grade is {stats.AvgGrade:N1}");
+            Console.WriteLine($"Average grade is {stats.AvgGradeLetter} ({stats.AvgGrade:N1})");
             Console.WriteLine($"Lowest grade is {stats.MinGrade:N1}");
             Console.WriteLine($"Highest grade is {stats.MaxGrade:N1}");
         }

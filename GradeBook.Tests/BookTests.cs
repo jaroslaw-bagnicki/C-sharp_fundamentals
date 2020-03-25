@@ -10,9 +10,9 @@ namespace GradeBook.Tests
         public void TestGetters()
         {
             var book = new Book("Test book");
-            book.AddGrade(1);
-            book.AddGrade(3);
-            book.AddGrade(5);
+            book.AddGrade(55);
+            book.AddGrade(79);
+            book.AddGrade(84);
 
             Assert.Equal(1, book.MinGrade);
             Assert.Equal(5, book.MaxGrade);
@@ -23,17 +23,37 @@ namespace GradeBook.Tests
         }
 
         [Fact]
-        public void TestGetStats()
+        public void TestGetStatsForBookWithNoGrades()
         {
             var book = new Book("Test book");
-            book.AddGrade(1);
-            book.AddGrade(3);
-            book.AddGrade(5);
 
             var stats = new Stats {
-                AvgGrade = (1+3+5)/3,
-                MinGrade = 1,
-                MaxGrade = 5,
+                AvgGrade = null,
+                AvgGradeLetter = null,
+                MinGrade = null,
+                MaxGrade = null,
+            };
+
+            var result = book.GetStats();
+            result.Should().BeEquivalentTo(stats);
+        }
+
+        [Theory]
+        [InlineData(new []{ 55.0, 79.0, 84.0 }, 72.7, 'C', 55.0, 84.0)]
+        public void TestGetStats(double[] grades, double avg, char avgLetter, double min, double max)
+        {
+            var book = new Book("Test book");
+
+            foreach (var grade in grades)
+            {
+                book.AddGrade(grade);
+            }
+
+            var stats = new Stats {
+                AvgGrade = avg,
+                AvgGradeLetter = avgLetter,
+                MinGrade = min,
+                MaxGrade = max,
             };
 
            book.GetStats().Should().BeEquivalentTo(stats);
@@ -49,7 +69,7 @@ namespace GradeBook.Tests
         [InlineData(33.3, 'F')]
         public void TestConvertToLetterGrade(Nullable<double> grade, Nullable<char> expected)
         {
-             var result = Book.ConvertTotLetterGrade(grade);
+             var result = Book.ConvertGradeTotLetterGrade(grade);
              result.Should().Be(expected);
         }
 
@@ -58,8 +78,7 @@ namespace GradeBook.Tests
         [InlineData(-1)]
         public void TestConvertToLetterGradeEx(double grade)
         {
-            Action convert = () => Book.ConvertTotLetterGrade(grade);
-
+            Action convert = () => Book.ConvertGradeTotLetterGrade(grade);
             convert.Should().Throw<ArgumentOutOfRangeException>()
                 .And.ParamName.Should().Be("grade");
         }
