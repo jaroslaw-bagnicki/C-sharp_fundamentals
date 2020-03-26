@@ -33,7 +33,7 @@ namespace GradeBook
             Console.WriteLine("Grade successfully added.");
         }
 
-        private bool ValidateGrade(double grade)
+        public static bool ValidateGrade(double grade)
         {
             return (grade >= MIN_GRADE && grade <= MAX_GRADE) ? true : false;
         }

@@ -28,9 +28,12 @@ namespace GradeBook
                 Console.Write("Do you want create new book? (y/n) ");
                 if(GetBoolInput())
                 {
-                    Console.Write("Enter name for book: ");
-                    var name = GetStringInput();
-                    Console.WriteLine("Name: " + name);
+                    var book = CreateNewBook();
+                    Books.Add(book);
+                    Console.Write("Book successfuly create. Show stats? (y/n) ");
+                    if(GetBoolInput()) {
+                        book.ShowStats();
+                    }
                 }
             }
         }
@@ -52,6 +55,7 @@ namespace GradeBook
                         Console.Write("Are you sure that you finish (y/n)? ");
                         if(GetBoolInput())
                         {
+                            Console.WriteLine($"You entered {book.Grades.Count} {(book.Grades.Count == 1 ? "grade" : "grades")}.");
                             break;
                         }
                         continue;
@@ -70,7 +74,7 @@ namespace GradeBook
 
         private static bool TryParseGrade(string input, out double grade)
         {
-            if(double.TryParse(input, out double result) && result >= Book.MIN_GRADE && result <= Book.MAX_GRADE)
+            if(double.TryParse(input, out double result) && Book.ValidateGrade(result))
             {
                 grade = result;
                 return true;
@@ -81,19 +85,28 @@ namespace GradeBook
 
         private static string GetStringInput(bool allowEmpty = false)
         {
+            // Console.WriteLine("Allow empty" + allowEmpty);
             var input = string.Empty;
             do
             {
                 try
                 {
+                    // Console.WriteLine("Input inside try before read: " + input);
                     input = Console.ReadLine();
+                    // Console.WriteLine("Input inside try after read: " + input);
                 }
                 catch (Exception ex)
                 {
                     Console.WriteLine(ex);
                     return string.Empty;
                 }
-            } while (allowEmpty || string.IsNullOrWhiteSpace(input));
+                // Console.WriteLine("Input outside try: " + input);
+                // Console.WriteLine("Allow empty: " + allowEmpty);
+                // Console.WriteLine("string.IsNullOrEmpty(input): " + string.IsNullOrEmpty(input));
+                // var flag = !allowEmpty || string.IsNullOrEmpty(input);
+                // Console.WriteLine("Flag: " + flag);
+                // Console.WriteLine("false || false: " + (false || false));
+            } while (!allowEmpty && string.IsNullOrWhiteSpace(input));
             return input;
         }
 
