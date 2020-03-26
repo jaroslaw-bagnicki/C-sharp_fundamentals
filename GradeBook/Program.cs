@@ -14,36 +14,65 @@ namespace GradeBook
             
             Console.WriteLine("Hello in GradeBook App \n");
 
-            if (Books.Count != 0) {
-                // TODO List list of Books
-            }
-            else {
-                Console.WriteLine("You don't have any books currently.");
-            }
-
             while (true)
             {
-                Console.Write("Do you want create new book (y/n): ");
-                if(GetBootInput())
-                {
-                    Console.WriteLine("Yes");
+                if (Books.Count != 0) {
+                    Console.WriteLine($"You have {Books.Count} {(Books.Count == 1 ? "book" : "books")} currently.");
+                    // TODO List list of Books
+                    // TODO Ask use existing or create new one
                 }
-                else
-                {
-                    Console.WriteLine("No");
+                else {
+                    Console.WriteLine("You don't have any books currently.");
                 }
-       
+
+                Console.Write("Do you want create new book? (y/n) ");
+                if(GetBoolInput())
+                {
+                    Console.Write("Enter name for book: ");
+                    var name = GetStringInput();
+                    Console.WriteLine("Name: " + name);
+                }
             }
-        //     var book = new Book("Math");
-
-        //     book.AddGrade(6);
-        //     book.AddGrade(2);
-        //     book.AddGrade(3.5);
-
-        //     book.ShowStats();
         }
 
-        static bool GetBootInput()
+        private static Book CreateNewBook()
+        {
+            Console.Write("Enter name for book: ");
+            var name = GetStringInput();
+            var book = new Book(name);
+            Console.Write("Do you want add grades? (y/n) ");
+            if(GetBoolInput())
+            {
+                while(true)
+                {
+                    Console.Write("Enter grade (or enter to finish): ");
+                    var grade = GetNumberInput();
+                    book.AddGrade(grade);
+                }
+            }
+
+            return book;
+        }
+
+        private static string GetStringInput(bool allowEmpty = false)
+        {
+            var input = string.Empty;
+            do
+            {
+                try
+                {
+                    input = Console.ReadLine();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex);
+                    return string.Empty;
+                }
+            } while (allowEmpty || string.IsNullOrWhiteSpace(input));
+            return input;
+        }
+
+        private static bool GetBoolInput()
         {
             char input = '\0';
             while(true)
@@ -55,6 +84,7 @@ namespace GradeBook
                 catch (Exception ex)
                 {
                     Console.WriteLine(ex);
+                    return false;
                 }
                 switch(input)
                 {
