@@ -7,8 +7,8 @@ namespace GradeBook
 {
     public class Book
     {
-        static readonly double MIN_GRADE = 0.0;
-        static readonly double MAX_GRADE = 100.0;
+        public static readonly double MIN_GRADE = 0.0;
+        public static readonly double MAX_GRADE = 100.0;
         string _name;
         List<double> _grades;
         public readonly ReadOnlyCollection<double> Grades;

@@ -68,7 +68,16 @@ namespace GradeBook
             return book;
         }
 
-
+        private static bool TryParseGrade(string input, out double grade)
+        {
+            if(double.TryParse(input, out double result) && result >= Book.MIN_GRADE && result <= Book.MAX_GRADE)
+            {
+                grade = result;
+                return true;
+            }
+            grade = 0;
+            return false;
+        }
 
         private static string GetStringInput(bool allowEmpty = false)
         {
