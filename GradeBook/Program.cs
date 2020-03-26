@@ -46,13 +46,29 @@ namespace GradeBook
                 while(true)
                 {
                     Console.Write("Enter grade (or enter to finish): ");
-                    var grade = GetNumberInput();
-                    book.AddGrade(grade);
+                    var input = GetStringInput(true);
+                    if(string.IsNullOrEmpty(input))
+                    {
+                        Console.Write("Are you sure that you finish (y/n)? ");
+                        if(GetBoolInput())
+                        {
+                            break;
+                        }
+                        continue;
+                    }
+                    if(TryParseGrade(input, out double grade))
+                    {
+                        book.AddGrade(grade);
+                    }
+                    else {
+                        Console.WriteLine("Invalid input! Try again.");
+                    }
                 }
             }
-
             return book;
         }
+
+
 
         private static string GetStringInput(bool allowEmpty = false)
         {
