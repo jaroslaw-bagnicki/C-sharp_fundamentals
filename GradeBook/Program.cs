@@ -85,27 +85,18 @@ namespace GradeBook
 
         private static string GetStringInput(bool allowEmpty = false)
         {
-            // Console.WriteLine("Allow empty" + allowEmpty);
             var input = string.Empty;
             do
             {
                 try
                 {
-                    // Console.WriteLine("Input inside try before read: " + input);
                     input = Console.ReadLine();
-                    // Console.WriteLine("Input inside try after read: " + input);
                 }
                 catch (Exception ex)
                 {
                     Console.WriteLine(ex);
                     return string.Empty;
                 }
-                // Console.WriteLine("Input outside try: " + input);
-                // Console.WriteLine("Allow empty: " + allowEmpty);
-                // Console.WriteLine("string.IsNullOrEmpty(input): " + string.IsNullOrEmpty(input));
-                // var flag = !allowEmpty || string.IsNullOrEmpty(input);
-                // Console.WriteLine("Flag: " + flag);
-                // Console.WriteLine("false || false: " + (false || false));
             } while (!allowEmpty && string.IsNullOrWhiteSpace(input));
             return input;
         }
